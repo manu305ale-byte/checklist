@@ -10,8 +10,9 @@ Landing page sencilla en HTML, CSS y JavaScript para controlar procesos de produ
 - Cortes y audio
   - Limpieza inicial, cortes base y división por colores.
 - Poner audio en stereo
-- Enviar audio
 - Edición
+- Enviar audio
+  - Exportar y compartir el audio para revisión o aprobación después de la edición.
 - Renderizado
   - Verificar antes del render que el timeline esté dividido por colores.
 - Subido a YouTube
