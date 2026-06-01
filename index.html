@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checklist de Producción de Video</title>
+  <meta name="description" content="Landing page sencilla con checklist para procesos de producción de video." />
+  <style>
+    :root{--bg:#0c0f14;--panel:#151923;--panel2:#1b2130;--text:#f5f7fb;--muted:#a9b2c3;--line:rgba(255,255,255,.09);--accent:#40d487;--accent2:#4ca7ff;--shadow:0 24px 70px rgba(0,0,0,.38)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{min-height:100vh;font-family:Inter,Arial,Helvetica,sans-serif;background:radial-gradient(circle at top left,rgba(64,212,135,.18),transparent 32%),radial-gradient(circle at bottom right,rgba(76,167,255,.18),transparent 30%),var(--bg);color:var(--text);display:flex;justify-content:center;align-items:center;padding:24px}
+    .landing{width:100%;max-width:820px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:32px;padding:clamp(24px,5vw,46px);box-shadow:var(--shadow);backdrop-filter:blur(18px)}
+    .tag{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.075);border:1px solid var(--line);color:var(--muted);font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px}.dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 18px var(--accent)}
+    h1{font-size:clamp(34px,7vw,68px);line-height:.96;letter-spacing:-.055em;margin-bottom:16px}.subtitle{max-width:620px;color:var(--muted);font-size:clamp(16px,2.4vw,19px);line-height:1.6;margin-bottom:30px}
+    .progress-card{background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:22px;padding:18px;margin-bottom:18px}.progress-head{display:flex;justify-content:space-between;gap:16px;color:var(--muted);font-size:14px;margin-bottom:12px}.progress-track{width:100%;height:13px;background:rgba(255,255,255,.085);border-radius:999px;overflow:hidden}.progress-fill{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .28s ease}
+    .checklist{display:grid;gap:12px;margin:18px 0 24px}.item{display:flex;align-items:center;gap:14px;width:100%;padding:17px;border:1px solid var(--line);border-radius:18px;background:var(--panel);cursor:pointer;user-select:none;transition:transform .18s ease,background .18s ease,border .18s ease}.item:hover{transform:translateY(-2px);background:var(--panel2);border-color:rgba(255,255,255,.16)}.item input{width:23px;height:23px;accent-color:var(--accent);cursor:pointer;flex:0 0 auto}.item span{font-size:17px;font-weight:650}.item small{display:block;margin-top:4px;color:var(--muted);font-size:13px;font-weight:400}.item.done{opacity:.68}.item.done span{text-decoration:line-through}
+    .actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}button{border:0;border-radius:999px;padding:14px 22px;font-size:15px;font-weight:800;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease}button:hover{transform:translateY(-2px)}.reset{color:#11151d;background:#fff;box-shadow:0 14px 34px rgba(255,255,255,.12)}.complete{color:#08120d;background:linear-gradient(90deg,var(--accent),var(--accent2))}.message{color:var(--muted);font-size:14px}footer{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+    @media(max-width:560px){body{padding:14px}.landing{border-radius:24px}.progress-head{flex-direction:column;gap:6px}.actions{align-items:stretch}button{width:100%}}
+  </style>
+</head>
+<body>
+  <main class="landing">
+    <div class="tag"><span class="dot"></span> Flujo de producción</div>
+    <h1>Checklist de producción de video</h1>
+    <p class="subtitle">Controla cada etapa del proceso desde los cortes iniciales hasta la subida final a YouTube. Marca los pasos completados y reinicia el flujo cuando empieces un nuevo proyecto.</p>
+    <section class="progress-card" aria-label="Progreso de producción"><div class="progress-head"><strong id="progressText">0 de 6 procesos completados</strong><span id="percentText">0%</span></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></section>
+    <section class="checklist" id="checklist">
+      <label class="item"><input type="checkbox" data-task="cortes-audio"><span>Cortes y audio<small>Limpieza inicial, cortes base y organización del material.</small></span></label>
+      <label class="item"><input type="checkbox" data-task="stereo"><span>Poner audio en stereo<small>Revisión de canales y balance para salida final.</small></span></label>
+      <label class="item"><input type="checkbox" data-task="enviar-audio"><span>Enviar audio<small>Exportar y compartir el audio para revisión o aprobación.</small></span></label>
+      <label class="item"><input type="checkbox" data-task="edicion"><span>Edición<small>Montaje, ritmo, gráficos, subtítulos, música y ajustes finales.</small></span></label>
+      <label class="item"><input type="checkbox" data-task="renderizado"><span>Renderizado<small>Exportación del archivo final en el formato requerido.</small></span></label>
+      <label class="item"><input type="checkbox" data-task="youtube"><span>Subido a YouTube<small>Carga, título, descripción, miniatura y publicación.</small></span></label>
+    </section>
+    <div class="actions"><button class="reset" id="resetBtn">Reiniciar checklist</button><button class="complete" id="completeBtn">Marcar todo</button><span class="message" id="statusMessage">Listo para iniciar.</span></div>
+    <footer>Checklist local: el avance se guarda automáticamente en este navegador.</footer>
+  </main>
+  <script>
+    const STORAGE_KEY='videoProductionChecklist';const checkboxes=[...document.querySelectorAll('input[type="checkbox"]')];const progressText=document.getElementById('progressText');const percentText=document.getElementById('percentText');const progressFill=document.getElementById('progressFill');const resetBtn=document.getElementById('resetBtn');const completeBtn=document.getElementById('completeBtn');const statusMessage=document.getElementById('statusMessage');
+    function loadState(){const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');checkboxes.forEach(box=>box.checked=Boolean(saved[box.dataset.task]));updateUI()}
+    function saveState(){const state={};checkboxes.forEach(box=>state[box.dataset.task]=box.checked);localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
+    function updateUI(){const total=checkboxes.length;const completed=checkboxes.filter(box=>box.checked).length;const percent=Math.round(completed/total*100);progressText.textContent=`${completed} de ${total} procesos completados`;percentText.textContent=`${percent}%`;progressFill.style.width=`${percent}%`;checkboxes.forEach(box=>box.closest('.item').classList.toggle('done',box.checked));statusMessage.textContent=completed===total?'Producción completada. Lista para entregar o publicar.':'Avance guardado automáticamente.'}
+    checkboxes.forEach(box=>box.addEventListener('change',()=>{saveState();updateUI()}));resetBtn.addEventListener('click',()=>{checkboxes.forEach(box=>box.checked=false);saveState();updateUI();statusMessage.textContent='Checklist reiniciado.'});completeBtn.addEventListener('click',()=>{checkboxes.forEach(box=>box.checked=true);saveState();updateUI()});loadState();
+  </script>
+</body>
+</html>
