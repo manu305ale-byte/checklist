@@ -4,12 +4,19 @@ Landing page sencilla en HTML, CSS y JavaScript para controlar procesos de produ
 
 ## Procesos incluidos
 
+- Organización de proyecto
+  - Organizar las carpetas en el escritorio.
+  - Organizar el proyecto dentro de DaVinci Resolve.
 - Cortes y audio
+  - Limpieza inicial, cortes base y división por colores.
 - Poner audio en stereo
 - Enviar audio
 - Edición
 - Renderizado
+  - Verificar antes del render que el timeline esté dividido por colores.
 - Subido a YouTube
+  - Avisar por el grupo que el video está subido.
+  - Llenar el Excel de control de producción como video finalizado.
 
 ## Uso
 
